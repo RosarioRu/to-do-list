@@ -35,5 +35,12 @@ namespace ToDoList.Controllers
       return View();
     }
 
+    [HttpGet("/items/{id}")]
+    public ActionResult Show(int id)
+    {
+      Item foundItem = Item.Find(id);
+      return View(foundItem);
+    }
+
   }
 }
