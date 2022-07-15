@@ -89,7 +89,7 @@ namespace ToDoList.Tests
     Item newItem = new Item(description);
 
     //Act
-    int result = newItem.Id;
+    int result = 0;
 
     //Assert
     Assert.AreEqual(1, result);
