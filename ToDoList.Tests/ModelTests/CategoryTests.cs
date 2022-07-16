@@ -27,10 +27,8 @@ namespace ToDoList.Tests
       //Arrange
       string name = "Test Category";
       Category newCategory = new Category(name);
-
       //Act
       string result = newCategory.Name;
-
       //Assert
       Assert.AreEqual(name, result);
     }
@@ -41,10 +39,8 @@ namespace ToDoList.Tests
       //Arrange
       string name = "Test Category";
       Category newCategory = new Category(name);
-
       //Act
       int result = newCategory.Id;
-
       //Assert
       Assert.AreEqual(1, result);
     }
@@ -58,10 +54,8 @@ namespace ToDoList.Tests
       Category newCategory1 = new Category(name01);
       Category newCategory2 = new Category(name02);
       List<Category> newList = new List<Category> { newCategory1, newCategory2 };
-
       //Act
       List<Category> result = Category.GetAll();
-
       //Assert
       CollectionAssert.AreEqual(newList, result);
     }
@@ -74,12 +68,29 @@ namespace ToDoList.Tests
       string name02 = "School";
       Category newCategory1 = new Category(name01);
       Category newCategory2 = new Category(name02);
-
       //Act
       Category result = Category.Find(2);
-
       //Assert
       Assert.AreEqual(newCategory2, result);
     }
+
+    [TestMethod]
+    public void AddItem_AssociatesItemWithCategory_ItemList()
+    {
+      //Arrange
+      string description = "Walk the dog.";
+      Item newItem = new Item(description);
+      List<Item> newList = new List<Item> { newItem };
+      string name = "Work";
+      Category newCategory = new Category(name);
+      newCategory.AddItem(newItem);
+      //Act
+      List<Item> result = newCategory.Items;
+      //Assert
+      CollectionAssert.AreEqual(newList, result);
+    }
+
+
+
   }
 }
