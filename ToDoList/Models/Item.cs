@@ -9,12 +9,31 @@ namespace ToDoList.Models
     public int Id {get; }
     // private static List<Item> _instances = new List<Item> { };
 
+    public Item(string description)
+    {
+      Description = description;
+      // _instances.Add(this);
+      // Id = _instances.Count;
+    }
+
     public Item(string description, int id)
     {
       Description = description;
-      ID = id;
-      // _instances.Add(this);
-      // Id = _instances.Count;
+      Id = id;
+    }
+
+    public override bool Equals(System.Object otherItem)
+    {
+      if (!(otherItem is Item))
+      {
+        return false;
+      }
+      else
+      {
+        Item newItem = (Item) otherItem;
+        bool descriptionEquality = (this.Description == newItem.Description);
+        return descriptionEquality;
+      }
     }
 
     public static List<Item> GetAll()
