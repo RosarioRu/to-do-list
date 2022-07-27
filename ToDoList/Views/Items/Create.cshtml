@@ -1,0 +1,15 @@
+@{
+  Layout = "_Layout";
+}
+
+@model ToDoList.Models.Item //model directive tells our views what type of data will be passed into the view from the controller route. In this case we're telling the view that it will receive a model that is an Item.
+
+<h4>Add a new task</h4>
+@using (Html.BeginForm())//BeginForm() sends HTTP POST request by default to the current URL. This form will send a post request to the CREATE() route (to /Items/Create). This is why we're not using RESTful routing's 
+{
+  @Html.LabelFor(model => model.Description) //Label.For() generates a form field. This a lambda expression.
+  @Html.TextBoxFor(model => model.Description) //TextBoxFor() generates input text box.
+  <input type="submit" value="Add to my list" />
+}
+
+<br><p>@Html.ActionLink("Show all items", "Index")</p>
