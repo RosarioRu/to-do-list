@@ -20,7 +20,7 @@ namespace ToDoList.Controllers
     public ActionResult Index()
     {
       List<Item> model = _db.Items.ToList(); //once in database, it looks for object named "Items" which is the DbSet declaired in ToDoListContext.cs, a property of ->(ToDoListContext : DbContext). LINQ turns this DbSet into a list using the ToList() method
-      return View(model); //this list is what is returned and is the model we'll use for the Idex view!
+      return View(model); //this list is what is returned and is the model we'll use for the Index view!
     }
   }
 }
