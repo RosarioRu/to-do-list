@@ -23,9 +23,9 @@ namespace ToDoList
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc();
-
+      //below in AddDbContext method is a 'dependency injection' that allows us to set the value of _db to ToDoListContext in our ItemsController file.
       services.AddEntityFrameworkMySql()
-        .AddDbContext<ToDoListContext>(options => options
+        .AddDbContext<ToDoListContext>(options => options 
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
     }
 

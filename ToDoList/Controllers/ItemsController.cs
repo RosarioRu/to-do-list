@@ -1,63 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using ToDoList.Models;
 using System.Collections.Generic;
-
+using System.Linq; //this allows us to use ToList() method below
 
 namespace ToDoList.Controllers
 {
   public class ItemsController : Controller
   {
-    
-    // [HttpGet("/items")]
-    // public ActionResult Index()
-    // {
-    //   List<Item> allItems = Item.GetAll();
-    //   return View(allItems);
-    // }
-
-    // [HttpGet("/items/new")]
-    // public ActionResult New()
-    // {
-    //   return View();
-    // }
-    [HttpGet("/categories/{categoryId}/items/new")]
-    public ActionResult New(int categoryId)
+    //a private and readonly field of type 'ToDoListContext' named _db
+    private readonly ToDoListContext _db;
+    //below constructor sets value of _db property to ToDoListContext. we can due this bc of a 'dependency injection' we set up in startup.cs
+    public ItemsController(ToDoListContext db) 
     {
-      Category category = Category.Find(categoryId);
-      return View(category);
+      _db = db;
     }
 
-    // [HttpPost("/items")]
-    // public ActionResult Create(string description)
-    // {
-    //   Item myItem = new Item(description);
-    //   return RedirectToAction("Index");
-    // }
-
-    [HttpPost("/items/delete")]
-    public ActionResult DeleteAll()
+    //below we are able to access all Item(s) in list form by usign LINQ ToList()
+    //_db's value is db, which is an instance of DbContext class. It holds reference to te database.
+    public ActionResult Index()
     {
-      Item.ClearAll();
-      return View();
+      List<Item> model = _db.Items.ToList(); //once in database, it looks for object named "Items" which is the DbSet declaired in ToDoListContext.cs, a property of ->(ToDoListContext : DbContext). LINQ turns this DbSet into a list using the ToList() method
+      return View(model); //this list is what is returned and is the model we'll use for the Idex view!
     }
-
-    // [HttpGet("/items/{id}")]
-    // public ActionResult Show(int id)
-    // {
-    //   Item foundItem = Item.Find(id);
-    //   return View(foundItem);
-    // }
-
-    [HttpGet("/categories/{categoryId}/items/{itemId}")]
-    public ActionResult Show(int categoryId, int itemId)
-    {
-      Item item = Item.Find(itemId);
-      Category category = Category.Find(categoryId);
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      model.Add("item", item);
-      model.Add("category", category);
-      return View(model);
-    }
-
   }
 }
