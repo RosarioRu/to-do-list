@@ -43,8 +43,19 @@ namespace ToDoList
       {
         await context.Response.WriteAsync("Hello World!");
       });
-    }
 
+      public void Configure(IApplicationBuilder app) //this configures the app to use static contact like css files and images!
+      {
+        ...
+        app.UseStaticFiles(); //THIS IS NEW
+        ...
+
+        app.Run(async (context) =>
+        {
+        ...
+        });    
+      }
+    }
 
   }
 }
