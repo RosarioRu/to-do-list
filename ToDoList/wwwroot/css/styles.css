@@ -5,3 +5,8 @@ body {
   font-weight: bold;
   background-color: lightblue;
 }
+
+ul {
+  list-style-type: none;
+}
+
