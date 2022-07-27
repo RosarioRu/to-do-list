@@ -39,22 +39,14 @@ namespace ToDoList
         routes.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
       });
 
+      app.UseStaticFiles(); //THIS IS NEW AND CONFIGURES APP TO USE STATIC CONTENT
+
       app.Run(async (context) =>
       {
         await context.Response.WriteAsync("Hello World!");
       });
 
-      public void Configure(IApplicationBuilder app) //this configures the app to use static contact like css files and images!
-      {
-        ...
-        app.UseStaticFiles(); //THIS IS NEW
-        ...
-
-        app.Run(async (context) =>
-        {
-        ...
-        });    
-      }
+      
     }
 
   }
