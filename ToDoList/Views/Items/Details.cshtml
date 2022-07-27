@@ -1,0 +1,11 @@
+@{
+  Layout = "_Layout";
+}
+
+@model ToDoList.Models.Item
+
+<h3>Item details</h3>
+
+<p>@Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</p>
+<p>Item's ID : @Html.DisplayFor(model => model.ItemId)</p>
+<p>@Html.ActionLink("Back to list", "Index")</p>
