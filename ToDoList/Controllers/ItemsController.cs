@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using ToDoList.Models;
 using System.Collections.Generic;
 using System.Linq; //this allows us to use ToList() method below
+using Microsoft.EntityFrameworkCore; //so we can use EntityState to modify Item(s).
+
 
 namespace ToDoList.Controllers
 {
@@ -26,7 +28,7 @@ namespace ToDoList.Controllers
     public ActionResult Create() //GET route that was previously, before Entity, called New(). This is where our form for new items lives, I think?
     {
       return View();
-    }
+    } 
 
     //below Post request takes item as argument (presumably from the form user submits) and adds it to _db.Items, then saves changes to database object (_db) and routes to Index() page/view for Items.
     [HttpPost]
@@ -44,6 +46,40 @@ namespace ToDoList.Controllers
       Item itemToDisplay = _db.Items.FirstOrDefault(item => item.ItemId == id);
       return View(itemToDisplay);
     }
+
+    [HttpGet] //this will go to a form that will allow editing of item. User will get here by clicking a link to edit a specific item when it that item's details page/view.
+    public ActionResult Edit(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+      return View(thisItem);
+    }
+
+    [HttpPost] //POST method will actually edit the item then take user to index of items view.
+    public ActionResult Edit(Item item)
+    {
+      _db.Entry(item).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    //Vieow to Form to delete individual item below. Link to this is in Details view for each item.
+    [HttpGet]
+    public ActionResult Delete(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+      return View(thisItem);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+      _db.Items.Remove(thisItem);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+
 
 
   }
