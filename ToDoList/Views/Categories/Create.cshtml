@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+@using ToDoList.Models
+@model ToDoList.Models.Category //model directive tells our views what type of data will be passed into the view from the controller route. In this case we're telling the view that it will receive a model that is an Category.
+
+<h3>Add a new Category</h3>
+ 
+@using (Html.BeginForm())//BeginForm() sends HTTP POST request by default to the current URL. This form will send a post request to the CREATE() route (to /Categories/Create). This is why we're not using RESTful routing
+{
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+  <input type="submit" value="Add this new Category"/>
+}

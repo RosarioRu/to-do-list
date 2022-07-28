@@ -7,6 +7,7 @@
 
 <h1>Items</h1>
 
+@* the below if is not working *@
 @if (@Model.Count == 0)
 {
   <h3>No items have been added yet!</h3>
@@ -18,7 +19,10 @@
     <li>@Html.ActionLink($"{item.Description}", "Details", new {id=item.ItemId})</li> //third variable being passed into the ActionLink is a new kind of varible (new {id=item.ItemId}) is an anonymous object with the property, id. This is how .NET knows which id to use when it routes to the Details() action. property names of the object we pass in MUST match parameter names used by the taraget method. In this case, in the controller: Details(int id). 
   }
 </ul>
+ 
+<br><p>@Html.ActionLink("Add new item", "Create")</p>
 
-<br><p>@Html.ActionLink("Add new item", "Crete")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>
+
 
 
