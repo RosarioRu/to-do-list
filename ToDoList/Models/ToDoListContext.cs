@@ -6,6 +6,7 @@ namespace ToDoList.Models
   {
     public DbSet<Category> Categories { get; set; }//adds a Category DbSet to ToDoListContext.cs
     public DbSet<Item> Items { get; set; }
+    public DbSet<CategoryItem> CategoryItems {get; set; }
 
     public ToDoListContext(DbContextOptions options) : base(options) { }
     
