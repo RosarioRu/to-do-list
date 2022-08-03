@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-//this code makes it so our application can property find our database context for migrations. it's called DesignTime because running migrations is something that is done when designing an application, not when we are actually running it. 
+//this code makes it so our application can properly find our database context for migrations. it's called DesignTime because running migrations is something that is done when designing an application, not when we are actually running it. 
 namespace ToDoList.Models
 {
   public class ToDoListContextFactory : IDesignTimeDbContextFactory<ToDoListContext>
