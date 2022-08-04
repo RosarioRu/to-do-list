@@ -76,6 +76,24 @@ namespace ToDoList.Controllers
       return RedirectToAction("Index");
     }
 
+    [HttpGet]
+    public ActionResult AddCategory(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+      ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
+      return View(thisItem);
+    }
+
+    [HttpPost]
+    public ActionResult AddCategory(Item item, int CategoryId)
+    {
+      if (CategoryId != 0)
+      {
+        _db.CategoryItem.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Index");
+    }
     
 
   }
