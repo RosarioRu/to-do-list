@@ -56,8 +56,27 @@ namespace ToDoList.Controllers
       return View(thisItem);
     }
 
+    [HttpGet] 
+    public ActionResult Edit(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+      ViewBag.CategoryId = new SelectList(_db.Categories, "CategoryId", "Name");
+      return View(thisItem);
+    }
+
+    [HttpPost] //POST method will actually edit the item then take user to index of items view.
+    public ActionResult Edit(Item item, int CategoryId)
+    {
+      if (CategoryId != 0)
+      {
+        _db.CategoryItems.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId});
+      }
+      _db.Entry(item).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
     
-   
 
   }
 }
@@ -68,20 +87,9 @@ namespace ToDoList.Controllers
 
 
 
-//     [HttpGet] //this will go to a form that will allow editing of item. User will get here by clicking a link to edit a specific item when it that item's details page/view.
-//     public ActionResult Edit(int id)
-//     {
-//       var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
-//       return View(thisItem);
-//     }
 
-//     [HttpPost] //POST method will actually edit the item then take user to index of items view.
-//     public ActionResult Edit(Item item)
-//     {
-//       _db.Entry(item).State = EntityState.Modified;
-//       _db.SaveChanges();
-//       return RedirectToAction("Index");
-//     }
+
+
 
 //     //Vieow to Form to delete individual item below. Link to this is in Details view for each item.
 //     [HttpGet]

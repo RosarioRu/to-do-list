@@ -1,4 +1,4 @@
-@*
+
 @{
   Layout = "_Layout";
 }
@@ -7,6 +7,10 @@
 
 <h3>Edit Below </h3>
 
+@* <p>Edit this task: @Html.DisplayFor(model => model.Description)</p> *@
+
+<p>Edit this task: @Model.Description</p>
+
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(model => model.ItemId)
@@ -14,7 +18,10 @@
     @Html.LabelFor(model => model.Description)
     @Html.EditorFor(model => model.Description)
 
+    @Html.Label("Select category")
+    @Html.DropDownList("CategoryId")
+
     <input type="submit" value="Save" />
 }
 <p>@Html.ActionLink("Never mind", "Index")</p>
-*@
+ 
