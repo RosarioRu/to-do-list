@@ -1,4 +1,3 @@
-@*
 @{
   Layout = "_Layout";
 }
@@ -10,8 +9,11 @@
 {
   @Html.LabelFor(model => model.Description) //Label.For() generates a form field. This a lambda expression.
   @Html.TextBoxFor(model => model.Description) //TextBoxFor() generates input text box.
-  <input type="submit" value="Add to my list" />
+
+  @Html.Label("Select category")
+  @Html.DropDownList("CategoryId")
+
+  <input type="submit" value="Add to my list" class="btn btn-default" />
 }
 
 <br><p>@Html.ActionLink("Show all items", "Index")</p> 
-*@
