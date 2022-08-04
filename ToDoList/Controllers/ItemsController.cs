@@ -33,6 +33,19 @@ namespace ToDoList.Controllers
       return View();
     }
 
+    [HttpPost]
+    public ActionResult Create(Item item, int CategoryId)
+    {
+      _db.Items.Add(item);
+      _db.SaveChanges();
+      if (CategoryId != 0)
+      {
+        _db.CategoryItems.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Index");
+    }
+
     [HttpGet]
     public ActionResult Details(int id)
     { //below we first say thisItem is a list of all Item(s) in database, then we 'load' the joinEntities of items by saying .Include the item(s) property called JoinEntities (list of relationships of items and their categories), then load the categories by .ThenInclude the join.Category. This will return list of items with the Categories of the CatgoryItem(s).  Finally we say the one we want is the the item with the ItemId equalling id.... I think?... so we return the item along with associated categories object(s).
@@ -49,10 +62,7 @@ namespace ToDoList.Controllers
   }
 }
 
-//     public ActionResult Create() //GET route that was previously, before Entity, called New(). This is where our form for new items lives, I think?
-//     {
-//       return View();
-//     } 
+
 
 
 
