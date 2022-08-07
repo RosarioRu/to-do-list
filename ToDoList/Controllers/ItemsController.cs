@@ -111,24 +111,15 @@ namespace ToDoList.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    [HttpPost]//only deletes the CategoryItem, NOT the Item or Category they are related to! It will remove categories from an item without deleting the category or item.
+    public ActionResult DeleteCategory(int joinId)
+    {
+      var joinEntry = _db.CategoryItem.FirstOrDefault(entry => entry.CategoryItemId == joinId);
+      _db.CategoryItem.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }   
     
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-//     
-
-
-
-
-//   }
-// }
