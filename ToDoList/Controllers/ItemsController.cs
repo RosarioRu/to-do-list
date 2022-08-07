@@ -17,7 +17,7 @@ namespace ToDoList.Controllers
     public ItemsController(ToDoListContext db) 
     {
       _db = db;
-    }
+    } 
 
     //below we are able to access all Item(s) in list form by usign LINQ ToList()
     //_db's value is db, which is an instance of DbContext class. It holds reference to te database.
@@ -48,7 +48,7 @@ namespace ToDoList.Controllers
 
     [HttpGet]
     public ActionResult Details(int id)
-    { //below we first say thisItem is a list of all Item(s) in database, then we 'load' the joinEntities of items by saying .Include the item(s) property called JoinEntities (list of relationships of items and their categories), then load the categories by .ThenInclude the join.Category. This will return list of items with the Categories of the CatgoryItem(s).  Finally we say the one we want is the the item with the ItemId equalling id.... I think?... so we return the item along with associated categories object(s).
+    { //below we first say thisItem is a list of all Item(s) in database, then we 'load' the joinEntities of items by saying .Include the item(s) property called JoinEntities (list of relationships of items and their categories), then load the categories by .ThenInclude the join.Category. This will return list of items with the Categories of the CatgoryItem(s).  Finally we say the one we want is the the item with the ItemId equalling id.... I think?... so we return the item along with associated categories object(s). ASK BECKET ABOUT THIS.
       var thisItem = _db.Items
         .Include(item => item.JoinEntities)
         .ThenInclude(join => join.Category)
@@ -89,13 +89,29 @@ namespace ToDoList.Controllers
     {
       if (CategoryId != 0)
       {
-        _db.CategoryItem.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId });
+        _db.CategoryItems.Add(new CategoryItem() { CategoryId = CategoryId, ItemId = item.ItemId });
         _db.SaveChanges();
       }
       return RedirectToAction("Index");
     }
-    
 
+    //Vieow to Form to delete individual item below. Link to this is in Details view for each item.
+    [HttpGet]
+    public ActionResult Delete(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+      return View(thisItem);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
+      _db.Items.Remove(thisItem);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+    
   }
 }
 
@@ -109,22 +125,7 @@ namespace ToDoList.Controllers
 
 
 
-//     //Vieow to Form to delete individual item below. Link to this is in Details view for each item.
-//     [HttpGet]
-//     public ActionResult Delete(int id)
-//     {
-//       var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
-//       return View(thisItem);
-//     }
-
-//     [HttpPost, ActionName("Delete")]
-//     public ActionResult DeleteConfirmed(int id)
-//     {
-//       var thisItem = _db.Items.FirstOrDefault(item => item.ItemId == id);
-//       _db.Items.Remove(thisItem);
-//       _db.SaveChanges();
-//       return RedirectToAction("Index");
-//     }
+//     
 
 
 
