@@ -1,16 +1,31 @@
-@*
 @{ 
   Layout = "_Layout";
 }
-
+@using ToDoList.Models
 @model ToDoList.Models.Category
 
 <h3>Category details</h3>
 <p>@Html.DisplayNameFor(model => model.Name) : @Html.DisplayFor(model => model.Name)</p>
 <p>Category's ID : @Html.DisplayFor(model => model.CategoryId)</p>
 
+@if (@Model.JoinEntities.Count == 0)
+{
+  <p>There are no items associated with this category</p>
+}
+else
+{
+  <p>Items Associated With This Category:</p>
+  <ul>
+    @foreach (var join in Model.JoinEntities)
+    {
+      <li>@join.Item.Description</li>
+    }  
+  </ul>
+
+    
+}
+
 
 
 
 <p>@Html.ActionLink("Back to Category list", "Index")</p>
-*@
