@@ -23,7 +23,7 @@ else
       @using (Html.BeginForm("DeleteCategory", "Items"))
       {
         @Html.Hidden("joinId", @join.CategoryItemId)
-        <input type ="submit" value="Delete from category"/>
+        <input type ="submit" value="remove category"/>
       }<br>
     }
   </ul>
