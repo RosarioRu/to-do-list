@@ -8,18 +8,32 @@
 
 <h1>Items</h1>
 
-@if (@Model.Count == 0)
-{
-  <h3>No items have been added yet!</h3>
-} 
-
-<ul>
-  @foreach(Item item in Model) //this foreach loop uses html helper method to link to a specific item's detail. Uses string interpolation - C# will evaluate an expression inside a string, so "{item.Description}" becomes, for example, "walk the dog." 
+  @if (@Model.Count == 0)
   {
-    <li>@Html.ActionLink($"{item.Description}", "Details", new {id=item.ItemId})</li> //third variable being passed into the ActionLink is a new kind of varible (new {id=item.ItemId}) is an anonymous object with the property, id. This is how .NET knows which id to use when it routes to the Details() action. property names of the object we pass in MUST match parameter names used by the taraget method. In this case, in the controller: Details(int id). 
+    <h3>No items have been added yet!</h3>
   }
-</ul>
- 
+  else 
+  {
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Mark Completed</th>
+      </tr>
+    </thead>
+    <tbody>
+    @foreach(Item item in Model)//this foreach loop uses html helper method to link to a specific item's detail. Uses string interpolation - C# will evaluate an expression inside a string, so "{item.Description}" becomes, for example, "walk the dog." 
+    {
+      <tr>
+        <td>@Html.ActionLink($"{item.Description}", "Details", new {id=item.ItemId})</td> @*third variable being passed into the ActionLink is a new kind of varible (new {id=item.ItemId}) is an anonymous object with the property, id. This is how .NET knows which id to use when it routes to the Details() action. property names of the object we pass in MUST match parameter names used by the taraget method. In this case, in the controller: Details(int id).*@
+        <td>@Html.CheckBox("Completed", false)</td>
+      </tr>
+    }
+    </tbody>
+  </table>
+  }
+
+
 <br><p>@Html.ActionLink("Add new item", "Create")</p>
 
 <p>@Html.ActionLink("Home", "Index", "Home")</p>
