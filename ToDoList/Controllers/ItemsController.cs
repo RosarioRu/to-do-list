@@ -24,6 +24,7 @@ namespace ToDoList.Controllers
     public ActionResult Index()
     {
       return View(_db.Items.ToList());
+      
     }
 
     [HttpGet]

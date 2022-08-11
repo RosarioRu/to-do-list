@@ -26,7 +26,13 @@
     {
       <tr>
         <td>@Html.ActionLink($"{item.Description}", "Details", new {id=item.ItemId})</td> @*third variable being passed into the ActionLink is a new kind of varible (new {id=item.ItemId}) is an anonymous object with the property, id. This is how .NET knows which id to use when it routes to the Details() action. property names of the object we pass in MUST match parameter names used by the taraget method. In this case, in the controller: Details(int id).*@
-        <td>@Html.CheckBox("Completed", false)</td>
+        <td>
+        <td>
+          @Html.CheckBox($"{item.ItemId}", false)
+        </td>
+
+        
+        @* <td>@Html.CheckBox("Completed", false)</td> *@
       </tr>
     }
     </tbody>
