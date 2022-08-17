@@ -27,6 +27,23 @@ namespace ToDoList.Controllers
       
     }
 
+    // [HttpPost, ActionName("Index")]
+    // public ActionResult SaveIsComplete(Item item)
+    // {
+    //   _db.Entry(item).State = EntityState.Modified;
+    //   _db.SaveChanges();
+    //   return RedirectToAction("Index");
+    // }
+
+    // [HttpPost]
+    // public ActionResult Index(int id)
+    // {
+      // Item itemToMarkComplete = _db.Items.ToList().FirstOrDefault(item => item.ItemId == id);
+      
+      // _db.Entry(itemToMarkComplete).State = EntityState.Modified;  
+           
+    // }
+
     [HttpGet]
     public ActionResult Create()
     {

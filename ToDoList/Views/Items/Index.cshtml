@@ -25,11 +25,17 @@
     @foreach(Item item in Model)//this foreach loop uses html helper method to link to a specific item's detail. Uses string interpolation - C# will evaluate an expression inside a string, so "{item.Description}" becomes, for example, "walk the dog." 
     {
       <tr>
+        
+        
         <td>@Html.ActionLink($"{item.Description}", "Details", new {id=item.ItemId})</td> @*third variable being passed into the ActionLink is a new kind of varible (new {id=item.ItemId}) is an anonymous object with the property, id. This is how .NET knows which id to use when it routes to the Details() action. property names of the object we pass in MUST match parameter names used by the taraget method. In this case, in the controller: Details(int id).*@
+        
         <td>
-        <td>
-          @Html.CheckBox($"{item.ItemId}", false)
-        </td>
+          @using (Html.BeginForm("Index", "Items", FormMethod.Post))
+          {
+          
+          @Html.CheckBox($"{item.ItemId}", false)  @*can also do item.ItemId*@
+          }
+        </td> 
 
         
         @* <td>@Html.CheckBox("Completed", false)</td> *@
